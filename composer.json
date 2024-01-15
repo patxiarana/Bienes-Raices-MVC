@@ -1,0 +1,20 @@
+{
+    "name": "usuario/bienes-raices-poo_php_inicio",
+    "description": "Creando un proyecto con poo",
+    "type": "proyect",
+    "autoload": {
+        "psr-4": {
+            "Model\\" : "./models"
+        }
+    },
+    "authors": [
+        {
+            "name": "patxi",
+            "email": "patxiarana05@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "intervention/image": "2.5.0"
+    } 
+}
