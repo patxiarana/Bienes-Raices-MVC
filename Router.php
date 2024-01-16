@@ -26,7 +26,9 @@ class Router
             $fn = $this->rutasGET[$urlActual] ?? null;
         }
         if ($fn) {
-           call_user_func($fn,$this) ; 
+
+
+            call_user_func($fn, $this);
         } else {
             echo "Pagina no encontrada";
         }
