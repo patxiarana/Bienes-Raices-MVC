@@ -41,7 +41,7 @@ class PropiedadController
                 $propiedad->setImagen($nombreImagen);
             }
 
-           
+
             // Validar
             $errores = $propiedad->validar();
 
@@ -65,24 +65,55 @@ class PropiedadController
         $router->render('propiedades/crear', [
             'propiedad' => $propiedad,
             'vendedores' => $vendedores,
-            'errores' => $errores 
+            'errores' => $errores
         ]);
     }
 
     public static function actualizar(Router $router)
     {
-        $id = validarOredireccionar('/admin') ; 
-         
-        $vendedores = Vendedor::all();
-         $propiedad = Propiedad::find($id) ; 
-         
-          $errores = Propiedad::getErrores(); 
+        $id = validarOredireccionar('/admin');
 
-         $router->render('propiedades/actualizar', [
+        $vendedores = Vendedor::all();
+        $propiedad = Propiedad::find($id);
+
+        $errores = Propiedad::getErrores();
+
+        //metodo post para actualizar 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            // Asignar los atributos
+            $args = $_POST['propiedad'];
+
+            $propiedad->sincronizar($args);
+
+
+            // Validación
+            $errores = $propiedad->validar();
+
+            // Subida de archivos
+            // Generar un nombre único
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+
+            if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800, 600);
+                $propiedad->setImagen($nombreImagen);
+            }
+
+            if (empty($errores)) {
+                // Almacenar la imagen
+                if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                    $image->save(CARPETA_IMAGENES . $nombreImagen);
+                }
+
+                $propiedad->guardar();
+            }
+        }
+
+        $router->render('propiedades/actualizar', [
             'propiedad' => $propiedad,
-            'errores' => $errores ,
-             'vendedores' => $vendedores 
-            
+            'errores' => $errores,
+            'vendedores' => $vendedores
+
         ]);
     }
 }
