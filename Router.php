@@ -35,10 +35,13 @@ class Router
     }
 
     //Muestra una vista 
-    public function render($view) {
-       ob_start() ;
+    public function render($view, $datos=[] ) {
+           
+       foreach($datos as $key=> $value) {
+        $$key = $value ; 
+       }
 
-
+        ob_start() ;
       include __DIR__ . "/views/$view.php" ; 
 
       $contenido = ob_get_clean();
