@@ -42,7 +42,7 @@
                             <input type="submit" class="boton boton-rojo" value="Eliminar">
                         </form>
 
-                        <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton boton-amarillo">Actualizar</a>
+                        <a href="/propiedades/actualizar?id=<?php echo $propiedad->id; ?>" class="boton boton-amarillo">Actualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
