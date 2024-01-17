@@ -14,6 +14,13 @@ class Router
         $this->rutasGET[$url] = $fn;
     }
 
+    
+    public function post($url, $fn)
+    {
+        $this->rutasPOST[$url]= $fn;
+    }
+
+
 
 
 
@@ -24,6 +31,9 @@ class Router
 
         if ($metodo === "GET") {
             $fn = $this->rutasGET[$urlActual] ?? null;
+        } else {
+            debuguear($this) ; 
+            $fn = $this->rutasPOST[$urlActual] ?? null;
         }
         if ($fn) {
 
