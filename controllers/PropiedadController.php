@@ -116,4 +116,17 @@ class PropiedadController
 
         ]);
     }
+    public static function eliminar()
+    {
+
+        $tipo = $_POST['tipo'];
+
+        // peticiones validas
+        if (($tipo)) {
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $propiedad = Propiedad::find($id);
+            $propiedad->eliminar();
+        }
+    }
 }
