@@ -39,10 +39,10 @@
                         <form method="POST" class="w-100" action='/propiedades/eliminar'>
                             <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
                             <input type="hidden" name="tipo" value="propiedad">
-                            <input type="submit" class="boton boton-rojo" value="Eliminar">
+                            <input type="submit"  class="boton-rojo-block" value="Eliminar">
                         </form>
 
-                        <a href="/propiedades/actualizar?id=<?php echo $propiedad->id; ?>" class="boton boton-amarillo">Actualizar</a>
+                        <a href="/propiedades/actualizar?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -70,10 +70,10 @@
                         <form method="POST" class="w-100" action="/vendedores/eliminar">
                             <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
                             <input type="hidden" name="tipo" value="vendedor">
-                            <input type="submit" class="boton boton-rojo" value="Eliminar">
+                            <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
 
-                        <a href="vendedores/actualizar?id=<?php echo $vendedor->id; ?>" class="boton boton-amarillo">Actualizar</a>
+                        <a href="vendedores/actualizar?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

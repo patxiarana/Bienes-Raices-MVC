@@ -3,23 +3,21 @@
 @import 'base/mixins';
 @import 'base/globales';
 @import 'base/utilidades';
-
-
+@import 'base/botones';
+@import 'base/darkMode';
 
 /** UI **/
 @import 'layout/header';
 @import 'layout/footer';
-
-/** Secciones **/
-@import 'layout/botones';
 @import 'layout/navegacion';
 @import 'layout/iconos';
 @import 'layout/anuncios';
 @import 'layout/contactar';
 @import 'layout/inferior';
 @import 'layout/testimoniales';
+@import 'layout/formularios';
 
-/** internas **/
+
+/** Paginas Internas **/
 @import 'internas/nosotros';
-@import 'internas/contacto';
 @import 'internas/admin';

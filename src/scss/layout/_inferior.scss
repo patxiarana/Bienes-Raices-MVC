@@ -1,5 +1,3 @@
-
-/** Sección Inferior **/
 @include tablet {
     .seccion-inferior {
         display: grid;
@@ -8,9 +6,9 @@
     }
 }
 
-/*** Blog **/
 .entrada-blog {
     margin-bottom: 2rem;
+
     @include tablet {
         display: grid;
         grid-template-columns: 1fr 2fr;
@@ -21,10 +19,20 @@
     }
 }
 
+.informacion-meta {
+    span {
+        color: $amarillo;
+    }
+}
+
 .texto-entrada {
     a {
         color: $negro;
-        text-decoration: none;
+        margin-top: 2rem;
+        display: block;
+        @include tablet {
+            margin-top: 0;
+        }
     }
     h4 {
         margin: 0;
@@ -38,7 +46,5 @@
             margin-top: 1rem;
         }
     }
-    span {
-        color: $amarillo;
-    }
+
 }

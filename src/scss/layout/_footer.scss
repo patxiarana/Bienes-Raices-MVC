@@ -1,30 +1,21 @@
-
-/** Footer **/
-.site-footer {
+.footer {
+    padding: $separacion / 2 0 ;
     background-color: $grisOscuro;
-    margin: 0;
-}
-.contenedor-footer {
-    padding: 3rem 0;
-    text-align: center;
+    margin-bottom: 0;
 
-    @include tablet {
-        .contenedor-footer {
-            display: flex;
-            justify-content: space-between;
-        }
+    .contenedor-footer {
+        padding-top: $separacion / 2;
     }
-}
-.site-footer nav {
-    display: flex;
-    flex-direction: column;
 
-    @include tablet {
-        flex-direction: row;
+    .navegacion {
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+    }
+
+    .copyright {
+        color: $blanco;
+        text-align: center;
     }
 }
 
-.copyright {
-    margin: 0;
-    color: $blanco;
-}

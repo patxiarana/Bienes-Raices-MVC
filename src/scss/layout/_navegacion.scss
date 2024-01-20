@@ -1,39 +1,54 @@
-
-.barra {
-    padding-top: 3rem;
-
+.derecha {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     @include tablet {
-        flex-direction: row;
+        align-items: flex-end;
     }
 
-    .logo {
-        width: 30rem;
-    }
+    .dark-mode-boton {
+        width: 3rem;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        filter: invert(100%);
 
-    @include tablet {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        &:hover {
+            cursor: pointer;
+        }
 
+        @include tablet {
+            margin-top: 0;
+        }
+    }
 }
+
+.barra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3rem;
+    @include tablet {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
 .navegacion {
+
     visibility: hidden;
     opacity: 0;
     height: 0;
-    transition: visibility 0s, opacity 0.5s linear, height 0s linear;
-
+    transition: visibility .3s ease-in-out, opacity .5s linear, height .5s linear; 
 
     @include tablet {
         display: flex;
-        height: auto;
-        visibility: visible;
+        align-items: center;
         opacity: 1;
+        visibility: visible;
     }
+    
     a {
         color: $blanco;
         text-decoration: none;
@@ -42,30 +57,30 @@
         text-align: center;
 
         @include tablet {
-            font-size: 1.8rem;
             margin-right: 2rem;
+            font-size: 1.8rem;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
         }
 
         &:hover {
             color: $verde;
         }
-
-        &:last-of-type {
-            margin: 0;
-        }
     }
 }
 
 
-/** Mobile Menu **/
-
-@include tablet {
-    .mobile-menu {
+/** Menu de hamburguesa **/
+.mobile-menu {
+    @include tablet {
         display: none;
     }
-}
-.mobile-menu img {
-    width: 5rem;
+
+    img {
+        width: 5rem;
+    }
 }
 
 .mostrar {
