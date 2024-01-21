@@ -3,9 +3,9 @@
 namespace Controllers;
 
 use MVC\Router;
-use Model\Propiedad ; 
-
-
+use Model\Propiedad ;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 class PaginasController {
     public static function index(Router $router ) {
   
@@ -49,15 +49,44 @@ class PaginasController {
         $router->render('paginas/entrada') ; 
     }
 
-    public static function contacto(Router $router ) {
-        if($_SERVER['REQUEST_METHOD'] === 'POST')  {
-            debuguear($_POST) ; 
+    public static function contacto(Router $router) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //Crear una instancia de PHPMailer
+            $mail = new PHPMailer();
+    
+            // Configurar SMTP
+         
+    
+            // Configurar el contenido del email
+            $mail->setFrom('patxiarana05@gmail.com');
+            $mail->addAddress('patxiarana05@gmail.com', 'Patxi Arana');
+            $mail->Subject = 'Tienes un nuevo mensaje';
+    
+            // Habilitar HTML
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
+    
+            // Definir el contenido
+            $contenido = '<html> <p>Tiene un nuevo mensaje</p> </html>';
+            $mail->Body = $contenido;
+            $mail->AltBody = "Esto es texto alternativo sin HTML";
+    
+            // Habilitar la depuración (debugging) para obtener más información
+            // $mail->SMTPDebug = 2;
+    
+            try {
+                // Enviar el email 
+                if ($mail->send()) {
+                    echo "Mensaje enviado correctamente"; 
+                } else {
+                    echo "El mensaje no se pudo enviar. Error: " . $mail->ErrorInfo;
+                }
+            } catch (Exception $e) {
+                echo "Error al enviar el mensaje: " . $e->getMessage();
+            }
         }
-
-        $router->render('paginas/contacto', [
-            
-        ]) ; 
+    
+        $router->render('paginas/contacto', []);
     }
-
 
 }
