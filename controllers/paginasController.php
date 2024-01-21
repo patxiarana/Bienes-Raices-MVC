@@ -60,7 +60,6 @@ class PaginasController {
     
             // Configurar SMTP
          
-    
             // Configurar el contenido del email
             $mail->setFrom('patxiarana05@gmail.com');
             $mail->addAddress('patxiarana05@gmail.com', 'Patxi Arana');
