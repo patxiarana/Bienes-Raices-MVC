@@ -1,106 +1,129 @@
-<?php 
+<?php
 
 namespace Controllers;
 
 use MVC\Router;
-use Model\Propiedad ;
+use Model\Propiedad;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-class PaginasController {
-    public static function index(Router $router ) {
-  
-     $propiedades = Propiedad::get(3); 
-       $inicio = true ; 
+
+class PaginasController
+{
+    public static function index(Router $router)
+    {
+
+        $propiedades = Propiedad::get(3);
+        $inicio = true;
         $router->render('paginas/index', [
-          '$propiedades' => $propiedades ,
-          'inicio' => $inicio 
-     ]) ; 
+            '$propiedades' => $propiedades,
+            'inicio' => $inicio
+        ]);
     }
-    public static function nosotros(Router $router) {
-        $router->render('paginas/nosotros') ; 
-    } 
-      public static function propiedades(Router $router ) {
-       $propiedades = Propiedad::all() ; 
+    public static function nosotros(Router $router)
+    {
+        $router->render('paginas/nosotros');
+    }
+    public static function propiedades(Router $router)
+    {
+        $propiedades = Propiedad::all();
 
 
         $router->render('paginas/propiedades', [
-           'propiedades' => $propiedades
-        ]) ; 
+            'propiedades' => $propiedades
+        ]);
     }
 
 
-    public static function propiedad(Router $router ) {
-        $id = validarOredireccionar('/propiedades') ;
+    public static function propiedad(Router $router)
+    {
+        $id = validarOredireccionar('/propiedades');
 
         //Buscar la propiedad por su id 
-        $propiedad = Propiedad::find($id) ; 
-        
+        $propiedad = Propiedad::find($id);
+
         $router->render('paginas/propiedad', [
-             'propiedad' => $propiedad
-           ]) ; 
+            'propiedad' => $propiedad
+        ]);
     }
 
 
-    public static function blog(Router $router) {
-       $router->render('paginas/blog') ; 
-    } 
-
-    public static function entrada(Router $router ) {
-        $router->render('paginas/entrada') ; 
+    public static function blog(Router $router)
+    {
+        $router->render('paginas/blog');
     }
 
-    public static function contacto(Router $router) {
+    public static function entrada(Router $router)
+    {
+        $router->render('paginas/entrada');
+    }
+
+    public static function contacto(Router $router)
+    {
+            $mensaje = null ; 
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           
-           $respuestas = $_POST['contacto'] ; 
-           
-           
+
+            $respuestas = $_POST['contacto'];
+
+
             //Crear una instancia de PHPMailer
             $mail = new PHPMailer();
-    
+
             // Configurar SMTP
-         
+        
+
             // Configurar el contenido del email
             $mail->setFrom('patxiarana05@gmail.com');
             $mail->addAddress('patxiarana05@gmail.com', 'Patxi Arana');
             $mail->Subject = 'Tienes un nuevo mensaje';
-    
+
             // Habilitar HTML
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
-    
+
             // Definir el contenido
             $contenido = '<html>';
             $contenido .= '<p>Tiene un nuevo mensaje</p>';
-            $contenido .= '<p>Nombre: '.$respuestas['nombre'] .' </p>';
-            $contenido .= '<p>Email: '.$respuestas['email'] .' </p>';
-            $contenido .= '<p>Telefono: '.$respuestas['telefono'] .' </p>';
-            $contenido .= '<p>Mensaje: '.$respuestas['mensaje'] .' </p>';
-            $contenido .= '<p>Vende o compra: '.$respuestas['tipo'] .' </p>';
-            $contenido .= '<p>precio o presupuesto: $'.$respuestas['precio'] .' </p>';
-            $contenido .= '<p>prefiere ser contactado por'.$respuestas['contacto'] .' </p>';
-            $contenido .= '<p>fecha contacto'.$respuestas['fecha'] .' </p>';
-            $contenido .= '<p>Hora Contato'.$respuestas['hora'] .' </p>';
+            $contenido .= '<p>Nombre: ' . $respuestas['nombre'] . ' </p>';
+
+            //Enviar de forma condicional algunos campos de email o telefono
+
+            if ($respuestas['contacto'] === 'telefono') {
+                $contenido .= "<p>eligio ser contactado por telefono<p>";
+                $contenido .= '<p>Telefono: ' . $respuestas['telefono'] . ' </p>';
+                $contenido .= '<p>fecha contacto' . $respuestas['fecha'] . ' </p>';
+                $contenido .= '<p>Hora Contato' . $respuestas['hora'] . ' </p>';
+            } else {
+                //ES email entonces agregamos el campo de email
+                $contenido .= "<p>eligio ser contactado por email<p>";
+                $contenido .= '<p>Email: ' . $respuestas['email'] . ' </p>';
+            }
+
+            $contenido .= '<p>Mensaje: ' . $respuestas['mensaje'] . ' </p>';
+            $contenido .= '<p>Vende o compra: ' . $respuestas['tipo'] . ' </p>';
+            $contenido .= '<p>precio o presupuesto: $' . $respuestas['precio'] . ' </p>';
+            $contenido .= '<p>prefiere ser contactado por' . $respuestas['contacto'] . ' </p>';;
             $contenido .= '</html>';
             $mail->Body = $contenido;
             $mail->AltBody = "Esto es texto alternativo sin HTML";
-    
+
             // Habilitar la depuración (debugging) para obtener más información
             // $mail->SMTPDebug = 2;
-    
+
             try {
                 // Enviar el email 
                 if ($mail->send()) {
-                    echo "Mensaje enviado correctamente"; 
+                $mensaje =  "Mensaje enviado correctamente";
                 } else {
-                    echo "El mensaje no se pudo enviar. Error: " . $mail->ErrorInfo;
+                    $mensaje =  "El mensaje no se pudo enviar. Error: " . $mail->ErrorInfo;
                 }
             } catch (Exception $e) {
                 echo "Error al enviar el mensaje: " . $e->getMessage();
             }
         }
-    
-        $router->render('paginas/contacto', []);
-    }
 
+        $router->render('paginas/contacto', [
+            'mensaje'=>$mensaje, 
+        ]);
+    }
 }
