@@ -69,8 +69,7 @@ class PaginasController
             //Crear una instancia de PHPMailer
             $mail = new PHPMailer();
 
-            // Configurar SMTP
-        
+            // Configurar SMTPS
 
             // Configurar el contenido del email
             $mail->setFrom('patxiarana05@gmail.com');
